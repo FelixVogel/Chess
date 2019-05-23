@@ -85,14 +85,28 @@ public abstract class Piece {
 		final int[][] moves = getMoves();
 
 		if(moves[cy][cx] != 0) {
-			if((moves[cy][cx] == 1) || (moves[cy][cx] == 3)) {
+			if(moves[cy][cx] == 1) {
 				move(cx, cy);
 
 				return true;
-			} else if((moves[cy][cx] == 2) && (board.getPieceAt(cx, cy) != null)) {
+			} else if(moves[cy][cx] == 2 && board.getPieceAt(cx, cy) != null && board.getPieceAt(cx, cy).getSide() != side) {
 				move(cx, cy);
 
 				return true;
+			} else if(moves[cy][cx] == 3) {
+				if(board.getPieceAt(cx, cy) == null) {
+					move(cx, cy);
+
+					return true;
+				} else if(board.getPieceAt(cx, cy) != null) {
+					if(board.getPieceAt(cx, cy).getSide() != side) {
+						move(cx, cy);
+
+						return true;
+					} else {
+						return false;
+					}
+				}
 			}
 		}
 
