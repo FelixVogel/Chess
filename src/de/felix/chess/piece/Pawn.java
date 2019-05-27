@@ -34,6 +34,29 @@ public class Pawn extends Piece {
 	}
 
 	@Override
+	public int[][] getEnemySideMoves() {
+		final int[][] moves = new int[8][8];
+
+		if(isFirstMove) {
+			moves[y + 2][x] = 1;
+		}
+
+		if((y + 1) < 8) {
+			moves[y + 1][x] = board.getPieceAt(x, y + 1) != null ? 0 : 1;
+
+			if((x - 1) > -1) {
+				moves[y + 1][x - 1] = 2;
+			}
+
+			if((x + 1) < 8) {
+				moves[y + 1][x + 1] = 2;
+			}
+		}
+
+		return moves;
+	}
+
+	@Override
 	public void moved() {
 		super.moved();
 
